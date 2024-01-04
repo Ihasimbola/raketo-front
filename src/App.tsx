@@ -1,7 +1,11 @@
+import { useRef } from 'react';
 import './App.scss';
 import { Button } from './components/Button/Button';
+import Input from './components/Input/Input';
 
 function App() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <div className="App">
       <h1 className="text-3xl font-bold underline">
@@ -15,6 +19,7 @@ function App() {
         <Button size="default" variant="danger">Any text</Button>
         <Button size="default" variant="gray">Any text</Button>
       </div>
+      <Input variant="primary" placeholder='Username' ref={inputRef} />
     </div>
   );
 }
