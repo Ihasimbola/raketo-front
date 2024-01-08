@@ -1,0 +1,9 @@
+@import '../../assets/sass/variable.scss';
+
+.card-container {
+  @apply flex flex-col justify-between items-center;
+  padding: 10px 8px;
+  min-width: 175px;
+  min-height: 175px;
+  background: linear-gradient(135deg, $first, $second);
+}
