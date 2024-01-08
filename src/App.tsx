@@ -5,6 +5,8 @@ import Input from './components/Input/Input';
 import Text from './components/Text/Text';
 import Navbar from './components/Navbar/Navbar';
 import Card from './components/Card/Card';
+import etiquetteLogo from "./assets/JS.png"
+import NodeIcon from "./components/icons/Node"
 
 function App() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -42,6 +44,21 @@ function App() {
           >
             Back-end
           </Text>
+          <img
+            src={etiquetteLogo}
+            alt='etiquette'
+            width={24}
+            height={24}
+          />
+        </Card>
+        <Card>
+          <Text
+            color="light-800"
+            size="lg"
+          >
+            Back-end
+          </Text>
+          <NodeIcon />
         </Card>
         <Card>
           <Text
