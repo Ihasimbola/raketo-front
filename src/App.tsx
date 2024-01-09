@@ -7,6 +7,7 @@ import Navbar from './components/Navbar/Navbar';
 import Card from './components/Card/Card';
 import etiquetteLogo from "./assets/JS.png"
 import NodeIcon from "./components/icons/Node"
+import ItemList from './components/list/ItemList';
 
 function App() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -42,7 +43,7 @@ function App() {
             color="light-800"
             size="lg"
           >
-            Back-end
+            JavaScript
           </Text>
           <img
             src={etiquetteLogo}
@@ -56,7 +57,7 @@ function App() {
             color="light-800"
             size="lg"
           >
-            Back-end
+            NodeJS
           </Text>
           <NodeIcon />
         </Card>
@@ -76,6 +77,10 @@ function App() {
             Devops
           </Text>
         </Card>
+      </div>
+
+      <div>
+        <ItemList />
       </div>
     </div>
   );
