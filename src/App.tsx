@@ -80,7 +80,7 @@ function App() {
       </div>
 
       <div>
-        <ItemList />
+        <ItemList variant="secondary" />
       </div>
     </div>
   );

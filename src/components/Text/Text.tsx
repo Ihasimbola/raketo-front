@@ -24,30 +24,30 @@ const textVariants = cva(
       }
     },
     defaultVariants: {
-      size: "sm",
+      size: "base",
       color: "light-700"
     }
   }
 )
 
-interface TextProps extends 
- VariantProps<typeof textVariants> {
+interface TextProps extends
+  VariantProps<typeof textVariants> {
   as?: keyof JSX.IntrinsicElements;
   children: React.ReactNode;
   className?: string
- }
+}
 
 const Text = (props: TextProps) => {
-  const { children, size, className , as = "p", color, ...otherProps } = props;
+  const { children, size, className, as = "p", color, ...otherProps } = props;
 
   const Tag = as;
 
   return (
     <Tag
-     className={cn(textVariants({ color, size }))}
-     {...otherProps}
+      className={cn(textVariants({ color, size }))}
+      {...otherProps}
     >
-      { children }
+      {children}
     </Tag>
   )
 }

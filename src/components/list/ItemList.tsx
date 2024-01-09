@@ -3,17 +3,33 @@ import Text from '../Text/Text'
 import PauseIcon from '../icons/PauseIcon'
 import PlayIcon from '../icons/PlayIcon'
 import { Button } from '../Button/Button'
+import { VariantProps, cva } from 'class-variance-authority'
+import { cn } from '../../lib/utils'
 
-type Props = {}
+const listVariants = cva(
+  "flex flex-row justify-between items-center w-full rounded-md border border-1 border-gray-300 py-2 px-5",
+  {
+    variants: {
+      variant: {
+        primary: "bg-gray-100",
+        secondary: "bg-gray-200",
+        dark: "bg-gray-400"
+      }
+    },
+    defaultVariants: {
+      variant: "secondary",
+    }
+  }
+)
 
-function ItemList({ }: Props) {
+interface Props extends VariantProps<typeof listVariants> {
+
+}
+
+function ItemList({ variant }: Props) {
   return (
     <div
-      className='
-        flex flex-row justify-between items-center w-full
-        rounded-md border border-1 border-gray-300 py-2 px-5
-      '
-    >
+      className={cn(listVariants({ variant }))}>
       <Text>
         Learn asynchronous programming
       </Text>
