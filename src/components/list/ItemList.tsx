@@ -28,8 +28,10 @@ interface Props extends VariantProps<typeof listVariants> {
 
 function ItemList({ variant }: Props) {
   return (
-    <div
-      className={cn(listVariants({ variant }))}>
+    <div className={cn(listVariants({ variant }))}>
+      <Text as='h3'>
+        Promise
+      </Text>
       <Text>
         Learn asynchronous programming
       </Text>
