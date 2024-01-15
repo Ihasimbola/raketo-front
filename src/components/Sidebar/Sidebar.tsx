@@ -45,6 +45,7 @@ function Sidebar({ data }: Props) {
         <LogoutIcon currentColor='white' />
         <Text
           color="white"
+          hover="text-hover"
         >
           Hivoaka
         </Text>
