@@ -22,17 +22,24 @@ const textVariants = cva(
         xl: "text-xl",
         "2xl": "text-2xl",
       },
+      weight: {
+        light: "font-light",
+        normal: "font-normal",
+        medium: "font-medium",
+        bold: "font-bold"
+      },
       hover: {
-        "text-hover-500": "hover:text-gray-500",
-        "text-hover-600": "hover:text-gray-600",
-        "text-hover-700": "hover:text-gray-700",
-        "text-hover-800": "hover:text-gray-800",
+        "text-hover-500": "hover:text-gray-600",
+        "text-hover-600": "hover:text-gray-700",
+        "text-hover-700": "hover:text-gray-800",
+        "text-hover-800": "hover:text-black",
         "text-hover": "hover:text-gray-200"
       }
     },
     defaultVariants: {
       size: "base",
       color: "light-700",
+      weight: "normal"
     }
   }
 )
@@ -45,13 +52,13 @@ interface TextProps extends
 }
 
 const Text = (props: TextProps) => {
-  const { children, size, className, as = "p", color, hover, ...otherProps } = props;
+  const { children, size, className, as = "p", color, hover, weight, ...otherProps } = props;
 
   const Tag = as;
 
   return (
     <Tag
-      className={cn(textVariants({ color, size, hover }))}
+      className={cn(textVariants({ color, size, hover, weight }))}
       {...otherProps}
     >
       {children}
