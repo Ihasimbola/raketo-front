@@ -3,6 +3,8 @@ import Text from '../Text/Text'
 import "./styles.scss";
 import LogoutIcon from '../icons/LogoutIcon';
 import { nanoid } from 'nanoid';
+import { NavLink } from 'react-router-dom';
+import { cn } from '../../lib/utils';
 
 type itemsType = {
   id: number,
@@ -16,8 +18,14 @@ type Props = {
 
 const SidebarList = (props: itemsType) => {
   const { Icon, label } = props;
+  const link = label.split(' ')[0].toLocaleLowerCase();
   return (
-    <li className='flex flex-row gap-2 py-2 cursor-pointer'>
+    <NavLink
+      to={link}
+      className={({ isPending, isActive }) => (
+        cn((isActive ? "sidebar__item--active" : isPending ? "sidebar__item--pending" : " ") + " sidebar__item flex flex-row gap-2 py-2 cursor-pointer")
+      )}
+    >
       {Icon}
       <Text
         color="white"
@@ -25,14 +33,14 @@ const SidebarList = (props: itemsType) => {
       >
         {label}
       </Text>
-    </li>
+    </NavLink>
   )
 }
 
 function Sidebar({ data }: Props) {
   return (
     <div
-      className="w-fit absolute z-[1000] sidebar-container bg-blue-700 flex flex-col justify-between h-full"
+      className="w-fit absolute z-[1000] sidebar bg-blue-700 flex flex-col justify-between h-full"
     >
       <ul>
         {

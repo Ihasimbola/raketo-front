@@ -4,9 +4,10 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import { sidebarDataList } from "../data/sidbarData"
 import "./style.scss";
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import { Outlet } from 'react-router-dom';
 
 type Props = {
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 function AppLayout({ children }: Props) {
@@ -16,7 +17,8 @@ function AppLayout({ children }: Props) {
       <Sidebar data={sidebarDataList} />
       <div className="app-content">
         <Breadcrumbs />
-        {children}
+        <Outlet />
+        {/* {children} */}
       </div>
     </div>
   )
