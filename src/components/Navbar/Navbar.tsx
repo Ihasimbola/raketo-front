@@ -2,6 +2,7 @@ import React from 'react'
 import raketoImg from "../../assets/raketo.webp"
 import Text from '../Text/Text'
 import "./style.scss";
+import { NavLink } from 'react-router-dom';
 
 type Props = {}
 
@@ -13,13 +14,16 @@ function Navbar({ }: Props) {
       <div
         className='flex flex-row gap-3 items-center justify-between'
       >
-        <Text
-          as='h2'
-          size="2xl"
-          color="white"
-        >
-          Raketo
-        </Text>
+        <NavLink to="/">
+          <Text
+            as='h2'
+            size="2xl"
+            color="white"
+            className='cursor-pointer'
+          >
+            Raketo
+          </Text>
+        </NavLink>
 
         <img
           src={raketoImg}
