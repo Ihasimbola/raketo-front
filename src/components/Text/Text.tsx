@@ -58,7 +58,7 @@ const Text = (props: TextProps) => {
 
   return (
     <Tag
-      className={cn(textVariants({ color, size, hover, weight }))}
+      className={cn([textVariants({ color, size, hover, weight }), className])}
       {...otherProps}
     >
       {children}

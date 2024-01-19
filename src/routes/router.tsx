@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Link, createBrowserRouter } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
 import CategoryPage from "../pages/category";
 import ElementPage from "../pages/element";
@@ -11,18 +11,23 @@ export const router = createBrowserRouter([
     children: [
       {
         children: [
-          { index: true, element: <div>Index page</div> },
+          { index: true, element: <div>Index page</div>, handle: { crumb: () => "index" } },
           {
             path: "sokajy",
-            element: <CategoryPage />
+            element: <CategoryPage />,
+            handle: { crumb: () => "sokajy" }
           },
           {
             path: "tekno",
-            element: <TeknoPage />
+            element: <TeknoPage />,
+            handle: { crumb: () => "tekno" }
+
           },
           {
             path: "singa",
-            element: <ElementPage />
+            element: <ElementPage />,
+            handle: { crumb: () => "singa" }
+
           }
         ]
       }
