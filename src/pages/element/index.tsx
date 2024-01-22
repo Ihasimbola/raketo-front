@@ -3,6 +3,7 @@ import Text from '../../components/Text/Text'
 import Card from '../../components/Card/Card'
 import { nanoid } from 'nanoid'
 import ItemList from '../../components/list/ItemList';
+import "./styles.scss";
 
 const itemsLists = [
   {
@@ -55,7 +56,7 @@ type ItemType = {
 
 function ElementPage({ }) {
   return (
-    <div className="flex flex-col gap-4 mt-4">
+    <div className="mt-4">
       <Text
         color="light-700"
         as="h1"
@@ -64,11 +65,13 @@ function ElementPage({ }) {
       >
         Ireo singa rehetra
       </Text>
-      {
-        itemsLists.map((item: ItemType, idx: number) => (
-          <ItemList data={item} key={nanoid()} />
-        ))
-      }
+      <div className="list__container flex flex-col gap-4 mt-3">
+        {
+          itemsLists.map((item: ItemType, idx: number) => (
+            <ItemList data={item} key={nanoid()} />
+          ))
+        }
+      </div>
     </div>
   )
 }
