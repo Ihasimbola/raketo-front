@@ -13,7 +13,7 @@ function HomePage({ }: Props) {
         <Text
           color="light-600"
           size="lg"
-          className='text-center'
+          className='text-center cursor-default'
         >
           Raketo ato izay rehetra ataonao.<br /> Arahao ny fivoaranao rehetra.
         </Text>

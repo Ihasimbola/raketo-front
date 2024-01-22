@@ -23,17 +23,22 @@ const listVariants = cva(
 )
 
 interface Props extends VariantProps<typeof listVariants> {
-
+  data: {
+    title: string,
+    description: string,
+    duration: string,
+    isFinished: boolean
+  }
 }
 
-function ItemList({ variant }: Props) {
+function ItemList({ variant, data }: Props) {
   return (
-    <div className={cn(listVariants({ variant }))}>
+    <div className={cn([listVariants({ variant })])}>
       <Text as='h3'>
-        Promise
+        {data.title}
       </Text>
       <Text>
-        Learn asynchronous programming
+        {data.description}
       </Text>
       <div
         className='flex flex-row items-center gap-4'
@@ -50,7 +55,7 @@ function ItemList({ variant }: Props) {
         />
 
         <Text>
-          00:40:06
+          {data.duration}
         </Text>
       </div>
 

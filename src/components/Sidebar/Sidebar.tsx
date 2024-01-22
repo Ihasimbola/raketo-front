@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Text from '../Text/Text'
 import "./styles.scss";
 import LogoutIcon from '../icons/LogoutIcon';
@@ -18,7 +18,9 @@ type Props = {
 
 const SidebarList = (props: itemsType) => {
   const { Icon, label } = props;
+
   const link = label.split(' ')[0].toLocaleLowerCase();
+
   return (
     <NavLink
       to={link}
@@ -38,9 +40,23 @@ const SidebarList = (props: itemsType) => {
 }
 
 function Sidebar({ data }: Props) {
+  const [sidebarHeight, setSidebarHeight] = useState(window.innerHeight);
+
+  useEffect(() => {
+    const handleHeightChange = () => setSidebarHeight(window.innerHeight);
+    window.addEventListener('resize', handleHeightChange);
+    return () => {
+      window.removeEventListener("resize", handleHeightChange);
+    }
+  }, []);
+
+
   return (
     <div
-      className="w-fit absolute z-[1000] sidebar bg-blue-700 flex flex-col justify-between h-full"
+      className="w-fit fixed z-[1000] sidebar bg-blue-700 flex flex-col justify-between h-full"
+      style={{
+        height: sidebarHeight - 74.69
+      }}
     >
       <ul>
         {
