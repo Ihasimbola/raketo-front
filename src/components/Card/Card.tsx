@@ -4,11 +4,17 @@ import { cn } from '../../lib/utils'
 import './style.scss'
 import Badge from '../Badge/Badge'
 
-type Props = {
-  children: React.ReactNode,
+type DataType = {
+  itemsNumber: number,
+  accumulatedHour: number
 }
 
-function Card({ children }: Props) {
+type Props = {
+  children: React.ReactNode,
+  data: DataType
+}
+
+function Card({ data, children }: Props) {
   const etiquette: any = Children
     .map(children, (child: any, idx: number) => child)
     ?.filter((item: any, idx: number) => idx > 0)[0]
@@ -26,7 +32,7 @@ function Card({ children }: Props) {
         </div>
         <Badge>
           <Text color="light-800">
-            zavatra 5
+            {`Zavatra ${data.itemsNumber}`}
           </Text>
         </Badge>
       </div>
@@ -35,7 +41,7 @@ function Card({ children }: Props) {
       </div>
       <div className="self-end">
         <Badge>
-          <Text color="light-800">5 ora</Text>
+          <Text color="light-800">{data.accumulatedHour} ora</Text>
         </Badge>
       </div>
     </div>
