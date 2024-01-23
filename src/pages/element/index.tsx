@@ -42,6 +42,66 @@ const itemsLists = [
     duration: "00:25:18",
     isFinished: false
   },
+  {
+    title: "Crypto",
+    description: "How to mining data",
+    duration: "00:25:18",
+    isFinished: false
+  },
+  {
+    title: "Crypto",
+    description: "How to mining data",
+    duration: "00:25:18",
+    isFinished: false
+  },
+  {
+    title: "Crypto",
+    description: "How to mining data",
+    duration: "00:25:18",
+    isFinished: false
+  },
+  {
+    title: "Crypto",
+    description: "How to mining data",
+    duration: "00:25:18",
+    isFinished: false
+  },
+  {
+    title: "Crypto",
+    description: "How to mining data",
+    duration: "00:25:18",
+    isFinished: false
+  },
+  {
+    title: "Crypto",
+    description: "How to mining data",
+    duration: "00:25:18",
+    isFinished: false
+  },
+  {
+    title: "Crypto",
+    description: "How to mining data",
+    duration: "00:25:18",
+    isFinished: false
+  },
+  {
+    title: "Crypto",
+    description: "How to mining data",
+    duration: "00:25:18",
+    isFinished: false
+  },
+  {
+    title: "Crypto",
+    description: "How to mining data",
+    duration: "00:25:18",
+    isFinished: false
+  },
+  {
+    title: "Crypto",
+    description: "How to mining data",
+    duration: "00:25:18",
+    isFinished: false
+  },
 ];
 
 type ItemType = {

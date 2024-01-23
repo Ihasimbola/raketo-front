@@ -7,8 +7,12 @@ const inputVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-transparent placeholder:text-gray-600 focus:border-gray-800"
+        primary: "bg-transparent placeholder:text-gray-600",
+        default: "bg-transparent placeholder:text-gray-600"
       }
+    },
+    defaultVariants: {
+      variant: "default"
     }
   }
 )
@@ -22,10 +26,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <>
         <input
-         ref={ref}
-         className={cn(inputVariants({ variant }))}
-         placeholder={placeholder}
-         {...props}
+          ref={ref}
+          className={cn([inputVariants({ variant }), className])}
+          placeholder={placeholder}
+          {...props}
         />
       </>
     )

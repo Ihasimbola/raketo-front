@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="App">
-      <AppLayout>
+      {/* <AppLayout>
         <div>
           <Text
             as="h1"
@@ -86,7 +86,7 @@ function App() {
             <ItemList variant="secondary" />
           </div>
         </div>
-      </AppLayout>
+      </AppLayout> */}
     </div>
   );
 }
