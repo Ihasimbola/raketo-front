@@ -1,5 +1,4 @@
 .list {
-  @apply grid;
   grid-template-columns: repeat(12, 1fr);
 
   &__title {

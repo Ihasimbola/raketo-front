@@ -34,7 +34,7 @@ interface Props extends VariantProps<typeof listVariants> {
 
 function ItemList({ variant, data }: Props) {
   return (
-    <div className={cn([listVariants({ variant }), "list"])}>
+    <div className={cn([listVariants({ variant }), "grid list"])}>
       <Text className="list__title">
         {data.title}
       </Text>
