@@ -1,0 +1,33 @@
+// .list-container {
+//   li:not(:first-child) {
+//     transform: translateX(-5px);
+//   }
+// }
+
+.list-container {
+  .crumbs-item:first-child {
+    @apply flex flex-row justify-center py-1;
+    clip-path: polygon(
+      0 0,
+      90% 0,
+      100% 50%,
+      90% 100%,
+      0 100%,
+    );
+    min-width: 90px;
+  }
+  }
+
+  .crumbs-item:not(:first-child) {
+    @apply flex flex-row justify-center py-1;
+    clip-path: polygon(
+      0 0,
+      90% 0,
+      100% 50%,
+      90% 100%,
+      0 100%,
+      10% 50%
+    );
+    min-width: 90px;
+  }
+

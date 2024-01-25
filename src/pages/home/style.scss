@@ -1,0 +1,10 @@
+.home {
+  &__img {
+    width: 250px;
+    height: auto;
+
+    &--filter {
+      filter: grayscale(85%);
+    }
+  }
+}

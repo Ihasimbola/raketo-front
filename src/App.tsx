@@ -7,76 +7,86 @@ import Navbar from './components/Navbar/Navbar';
 import Card from './components/Card/Card';
 import etiquetteLogo from "./assets/JS.png"
 import NodeIcon from "./components/icons/Node"
+import ItemList from './components/list/ItemList';
+import AppLayout from "./layout/AppLayout"
+
 
 function App() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="App">
-      <Navbar />
-      <Text
-        as="h1"
-        color="light-800"
-        size="2xl"
-      >
-        Title
-      </Text>
-      <div className="flex flex-row gap-1">
-        <Button size="default" variant="default">Any text</Button>
-        <Button size="default" variant="outline">Any text</Button>
-        <Button size="default" variant="primary">Any text</Button>
-        <Button size="default" variant="secondary">Any text</Button>
-        <Button size="default" variant="danger">Any text</Button>
-        <Button size="default" variant="gray">Any text</Button>
-      </div>
-      <Input variant="primary" placeholder='Username' ref={inputRef} />
-      <Text
-        color="light-600"
-        size="base"
-      >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, commodi! Dolore nulla non officia id voluptatibus doloremque unde enim pariatur nemo labore dolor tempora aperiam fuga, rem deleniti eius expedita.
-      </Text>
-      <div className="flex flex-row gap-2">
-        <Card>
+      {/* <AppLayout>
+        <div>
           <Text
+            as="h1"
             color="light-800"
-            size="lg"
+            size="2xl"
           >
-            Back-end
+            Title
           </Text>
-          <img
-            src={etiquetteLogo}
-            alt='etiquette'
-            width={24}
-            height={24}
-          />
-        </Card>
-        <Card>
+          <div className="flex flex-row gap-1">
+            <Button size="default" variant="default">Any text</Button>
+            <Button size="default" variant="outline">Any text</Button>
+            <Button size="default" variant="primary">Any text</Button>
+            <Button size="default" variant="secondary">Any text</Button>
+            <Button size="default" variant="danger">Any text</Button>
+            <Button size="default" variant="gray">Any text</Button>
+          </div>
+          <Input variant="primary" placeholder='Username' ref={inputRef} />
           <Text
-            color="light-800"
-            size="lg"
+            color="light-600"
+            size="base"
           >
-            Back-end
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, commodi! Dolore nulla non officia id voluptatibus doloremque unde enim pariatur nemo labore dolor tempora aperiam fuga, rem deleniti eius expedita.
           </Text>
-          <NodeIcon />
-        </Card>
-        <Card>
-          <Text
-            color="light-800"
-            size="lg"
-          >
-            Front-end
-          </Text>
-        </Card>
-        <Card>
-          <Text
-            color="light-800"
-            size="lg"
-          >
-            Devops
-          </Text>
-        </Card>
-      </div>
+          <div className="flex flex-row gap-2">
+            <Card>
+              <Text
+                color="light-800"
+                size="lg"
+              >
+                JavaScript
+              </Text>
+              <img
+                src={etiquetteLogo}
+                alt='etiquette'
+                width={24}
+                height={24}
+              />
+            </Card>
+            <Card>
+              <Text
+                color="light-800"
+                size="lg"
+              >
+                NodeJS
+              </Text>
+              <NodeIcon />
+            </Card>
+            <Card>
+              <Text
+                color="light-800"
+                size="lg"
+              >
+                Front-end
+              </Text>
+            </Card>
+            <Card>
+              <Text
+                color="light-800"
+                size="lg"
+              >
+                Devops
+              </Text>
+            </Card>
+          </div>
+
+          <div>
+            <ItemList variant="secondary" />
+          </div>
+        </div>
+      </AppLayout> */}
     </div>
   );
 }
