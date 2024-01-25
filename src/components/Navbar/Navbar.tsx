@@ -37,6 +37,7 @@ function Navbar({ }: Props) {
 
         <div className="flex flex-row items-center gap-3">
           <Input
+            variant="primary"
             placeholder='Hikaroka...'
             className="focus:border-gray-300 text-white placeholder:text-gray-300 pr-8"
           />

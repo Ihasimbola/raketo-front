@@ -3,13 +3,14 @@ import { VariantProps, cva } from "class-variance-authority";
 import { cn } from '../../lib/utils';
 
 const inputVariants = cva(
-  "border border-2 border-gray-500 text-gray-800 rounded-md focus:outline-none h-10 pl-2 ",
+  "text-gray-800 focus:outline-none bg-transparent h-10 pl-2 ",
   {
     variants: {
       variant: {
-        primary: "bg-transparent placeholder:text-gray-600",
+        primary: "border border-2 border-gray-500 rounded-md placeholder:text-gray-600",
+        secondary: "border-b-2 border-gray-200",
         default: "bg-transparent placeholder:text-gray-600"
-      }
+      },
     },
     defaultVariants: {
       variant: "default"
