@@ -4,6 +4,7 @@ import CategoryPage from "../pages/category";
 import ElementPage from "../pages/element";
 import TeknoPage from "../pages/tekno";
 import HomePage from "../pages/home";
+import LoginPage from "../pages/login";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,11 @@ export const router = createBrowserRouter([
           }
         ]
       }
-    ]
+    ],
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
   }
+
 ])
