@@ -3,7 +3,7 @@ import Text from '../Text/Text'
 import "./styles.scss";
 import LogoutIcon from '../icons/LogoutIcon';
 import { nanoid } from 'nanoid';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 
 type itemsType = {
@@ -41,6 +41,12 @@ const SidebarList = (props: itemsType) => {
 
 function Sidebar({ data }: Props) {
   const [sidebarHeight, setSidebarHeight] = useState(window.innerHeight);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/login');
+  }
 
   useEffect(() => {
     const handleHeightChange = () => setSidebarHeight(window.innerHeight);
@@ -65,7 +71,7 @@ function Sidebar({ data }: Props) {
           ))
         }
       </ul>
-      <div className='flex flex-row gap-2 cursor-pointer'>
+      <div className='flex flex-row gap-2 cursor-pointer' onClick={handleLogout}>
         <LogoutIcon currentColor='white' />
         <Text
           color="white"

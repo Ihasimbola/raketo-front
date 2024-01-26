@@ -5,6 +5,7 @@ import ElementPage from "../pages/element";
 import TeknoPage from "../pages/tekno";
 import HomePage from "../pages/home";
 import LoginPage from "../pages/login";
+import { action as loginAction } from "../pages/login/index";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+    action: loginAction
   }
 
 ])
