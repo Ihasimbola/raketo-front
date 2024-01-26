@@ -11,6 +11,11 @@ const textVariants = cva(
         "light-600": "text-gray-600 ",
         "light-700": "text-gray-700 ",
         "light-800": "text-gray-800",
+        "red-300": "text-red-300",
+        "red-400": "text-red-400",
+        "red-500": "text-red-500",
+        "red-600": "text-red-600",
+        "red-700": "text-red-700",
         black: "text-gray-900",
         white: "text-gray-100 "
       },
