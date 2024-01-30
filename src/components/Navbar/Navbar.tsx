@@ -28,20 +28,22 @@ function Navbar({ }: Props) {
           </Text>
         </NavLink>
 
-        <img
-          src={raketoImg}
-          alt="raketo"
-          width={60}
-          height={60}
-        />
-
-        <div className="flex flex-row items-center gap-3">
+        <div className='relative flex-grow-[0.3]'>
           <Input
-            variant="primary"
+            variant="secondary"
             placeholder='Hikaroka...'
-            className="focus:border-gray-300 text-white placeholder:text-gray-300 pr-8"
+            className="focus:border-red-300 text-white placeholder:text-gray-300 pr-8 w-full"
           />
-          <SearchIcon currentColor='text-gray-300' className="cursor-pointer hover:text-gray-100 absolute right-[74px]" />
+          <SearchIcon currentColor='text-gray-300' className=" search__icon cursor-pointer hover:text-red-300 absolute right-2" />
+
+        </div>
+
+        <div className="flex flex-row items-center gap-3 hover:cursor-pointer">
+          <Text
+            color="white"
+          >
+            Mombamomba anao
+          </Text>
           <DefaultUserIcon width={40} height={40} className='cursor-pointer hover:text-gray-200' currentColor='text-gray-300' />
         </div>
       </div>

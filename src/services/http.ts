@@ -8,6 +8,7 @@ class Http {
       const res = await axiosInstance.post(url, data);
       return res;
     } catch (error: any) {
+      console.error("Error catched at Http post => ", error.message);
       throw error;
     }
   }

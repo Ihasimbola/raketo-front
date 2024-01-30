@@ -30,7 +30,9 @@ export async function action({ request }: any) {
   try {
     const formData = await request.formData();
     const credentials = Object.fromEntries(formData) as any;
-    await UserService.login('/users/login', credentials);
+    const { data } = await UserService.login('/users/login', credentials);
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('refreshToken', data.refreshToken);
     return redirect('/');
   } catch (err: any) {
     return err.response.data.message as string;
