@@ -2,7 +2,8 @@ import React from 'react'
 import Text from '../../components/Text/Text'
 import Card from '../../components/Card/Card'
 import js from '../../assets/JS.png'
-import { nanoid } from 'nanoid'
+import CategoryService from '../../services/categoryService'
+import { useLoaderData } from 'react-router-dom'
 
 const allCategories = [
   {
@@ -38,7 +39,19 @@ const allCategories = [
 
 type Props = {}
 
+export async function loader({ request }: any) {
+  try {
+    const categories = await CategoryService.getCategories();
+    console.log(categories)
+    return categories;
+  } catch (error: any) {
+    console.error('Error getting categories ', error.message);
+  }
+}
+
 function CategoryPage({ }: Props) {
+  const categories = useLoaderData();
+
   return (
     <div className='flex flex-col gap-3 mt-[15px]'>
       <Text
@@ -52,7 +65,7 @@ function CategoryPage({ }: Props) {
       <div className="flex flex-row flex-wrap overflow-hidden gap-4">
         {
           allCategories.map((category: any, idx: number) => (
-            <Card data={category} key={nanoid()}>
+            <Card data={category} key={idx}>
               <Text>
                 {category.label}
               </Text>

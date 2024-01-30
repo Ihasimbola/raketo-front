@@ -1,7 +1,6 @@
 import React from 'react'
 import Text from '../../components/Text/Text'
 import Card from '../../components/Card/Card'
-import { nanoid } from 'nanoid'
 import JS from "../../assets/JS.png"
 import Go from "../../assets/Go.png"
 import rust from "../../assets/rust-logo-512x512-blk.png"
@@ -58,7 +57,7 @@ function TeknoPage({ }: Props) {
       <div className="flex flex-row flex-wrap overflow-hidden gap-4">
         {
           allItems.map((category: any, idx: number) => (
-            <Card data={category} key={nanoid()}>
+            <Card data={category} key={idx}>
               <Text>
                 {category.label}
               </Text>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Text from '../Text/Text'
 import "./styles.scss";
 import LogoutIcon from '../icons/LogoutIcon';
-import { nanoid } from 'nanoid';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 
@@ -67,7 +66,7 @@ function Sidebar({ data }: Props) {
       <ul>
         {
           data.map((item: itemsType, idx: number) => (
-            <SidebarList label={item.label} Icon={item.Icon} id={item.id} key={nanoid(12)} />
+            <SidebarList label={item.label} Icon={item.Icon} id={item.id} key={idx} />
           ))
         }
       </ul>

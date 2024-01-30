@@ -27,30 +27,36 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response: any) => {
     // console.log("response from interceptor ", response);
-    localStorage.setItem("token", response.data.token);
-    localStorage.setItem("refreshToken", response.data.refreshToken);
+    // localStorage.setItem("token", response.data.token);
+    // localStorage.setItem("refreshToken", response.data.refreshToken);
 
     return response;
   },
   async (err: any) => {
+    const originalRequest = err.config;
     // console.log("4xx range => ", err);
-    // if (err.response.status === 403) {
-    //   const res: any = await refreshToken(localStorage.getItem("refreshToken"));
-    //   console.log(res.response.status);
-    //   if (res.response.status === 401) {
-    //     return new Promise((res, rej) => rej(err));
-    //   }
-    //   localStorage.setItem("token", res.data.token);
-    // }
-    // return new Promise((res, rej) => res(err));
-    // console.log(err.response.status);
-    return Promise.reject(err);
+    if (err.response.status === 403) {
+      originalRequest._retry = true;
+      const res: any = await refreshToken(localStorage.getItem("refreshToken"));
+
+      localStorage.setItem("token", res.data.token);
+      axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
+      return Promise.resolve(axiosInstance(originalRequest));
+    } else if (err.response.status === 401) {
+      return Promise.reject(err);
+    }
   }
 );
 
 const refreshToken = async (refresh: string | null) => {
-  const res = await axiosInstance.post("/users/auth", refresh);
-  return res;
+  try {
+    const res = await axiosInstance.post("/users/auth/verifyRefresh", {
+      refreshToken: refresh,
+    });
+    return res;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export default axiosInstance;
