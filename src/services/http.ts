@@ -3,6 +3,15 @@ import axiosInstance from "../lib/axios";
 import env from "react-dotenv";
 
 class Http {
+  static async get(url: string) {
+    try {
+      const res = await axiosInstance.get(url);
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async post(url: string, data: any) {
     try {
       const res = await axiosInstance.post(url, data);

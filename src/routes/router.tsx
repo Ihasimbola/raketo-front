@@ -6,6 +6,7 @@ import TeknoPage from "../pages/tekno";
 import HomePage from "../pages/home";
 import LoginPage from "../pages/login";
 import { action as loginAction } from "../pages/login/index";
+import { loader as categoryLoader } from "../pages/category";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
           {
             path: "sokajy",
             element: <CategoryPage />,
+            loader: categoryLoader,
             handle: { crumb: () => "sokajy" }
           },
           {

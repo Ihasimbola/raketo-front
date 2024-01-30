@@ -2,6 +2,7 @@ import React from 'react'
 import raketo from "../../assets/raketo.webp";
 import Text from '../../components/Text/Text';
 import "./style.scss";
+import { intervalToDuration } from 'date-fns';
 
 type Props = {}
 
