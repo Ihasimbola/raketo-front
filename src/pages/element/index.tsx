@@ -1,7 +1,6 @@
 import React from 'react'
 import Text from '../../components/Text/Text'
 import Card from '../../components/Card/Card'
-import { nanoid } from 'nanoid'
 import ItemList from '../../components/list/ItemList';
 import "./styles.scss";
 
@@ -128,7 +127,7 @@ function ElementPage({ }) {
       <div className="list__container flex flex-col gap-4 mt-3">
         {
           itemsLists.map((item: ItemType, idx: number) => (
-            <ItemList data={item} key={nanoid()} />
+            <ItemList data={item} key={idx} />
           ))
         }
       </div>
