@@ -3,7 +3,7 @@ import Text from '../../components/Text/Text'
 import Card from '../../components/Card/Card'
 import js from '../../assets/JS.png'
 import CategoryService from '../../services/categoryService'
-import { useLoaderData } from 'react-router-dom'
+import { Outlet, useLoaderData } from 'react-router-dom'
 
 const allCategories = [
   {
@@ -43,9 +43,21 @@ export async function loader({ request }: any) {
   try {
     const categories = await CategoryService.getCategories();
     console.log(categories)
-    return categories;
+    return categories.data;
   } catch (error: any) {
     console.error('Error getting categories ', error.message);
+  }
+}
+
+export async function action({ request }: any) {
+  try {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData) as { name: string };
+    const res = await CategoryService.createCategory('/category', data);
+    console.log(res.data);
+    return res.data;
+  } catch (err: any) {
+    console.error(err.message);
   }
 }
 
@@ -73,6 +85,9 @@ function CategoryPage({ }: Props) {
           ))
         }
 
+      </div>
+      <div>
+        <Outlet />
       </div>
     </div>
   )

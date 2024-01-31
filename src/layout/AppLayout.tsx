@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import { sidebarDataList } from "../data/sidbarData"
 import "./style.scss";
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Form, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import UserService from '../services/userService';
 import { Button } from '../components/Button/Button';
 import { Plus } from 'lucide-react';
@@ -96,6 +96,7 @@ const ModalContent: React.FC<ModalContentType> = ({ currentLocation }) => {
           <Input
             placeholder="Anaran'ilay sokajy..."
             variant="primary"
+            name="name"
           />
         </div>
       </React.Fragment>
@@ -121,7 +122,7 @@ const ModalContent: React.FC<ModalContentType> = ({ currentLocation }) => {
             variant="primary"
           />
           <div className={
-            cn(["modal__logo flex flex-col justify-center items-center border border-gray-200 border-dashed", `${imgSrc ? 'border-none' : ''}`])
+            cn(["modal__logo flex flex-col justify-center items-center border border-gray-200 border-dashed cursor-pointer", `${imgSrc ? 'border-none' : ''}`])
           }
             onClick={() => {
               inputFileRef?.current?.click()

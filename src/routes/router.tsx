@@ -1,4 +1,4 @@
-import { Link, createBrowserRouter } from "react-router-dom";
+import { Link, Outlet, createBrowserRouter } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
 import CategoryPage from "../pages/category";
 import ElementPage from "../pages/element";
@@ -7,6 +7,7 @@ import HomePage from "../pages/home";
 import LoginPage from "../pages/login";
 import { action as loginAction } from "../pages/login/index";
 import { loader as categoryLoader } from "../pages/category";
+import { action as categoryAction } from "../pages/category";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +21,8 @@ export const router = createBrowserRouter([
             path: "sokajy",
             element: <CategoryPage />,
             loader: categoryLoader,
-            handle: { crumb: () => "sokajy" }
+            action: categoryAction,
+            handle: { crumb: () => "sokajy" },
           },
           {
             path: "tekno",
@@ -32,8 +34,7 @@ export const router = createBrowserRouter([
             path: "singa",
             element: <ElementPage />,
             handle: { crumb: () => "singa" }
-
-          }
+          },
         ]
       }
     ],
@@ -41,7 +42,6 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
-    action: loginAction
-  }
-
+    action: loginAction,
+  },
 ])
