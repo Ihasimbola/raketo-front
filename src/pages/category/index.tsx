@@ -1,9 +1,10 @@
-import React from 'react'
 import Text from '../../components/Text/Text'
 import Card from '../../components/Card/Card'
-import js from '../../assets/JS.png'
 import CategoryService from '../../services/categoryService'
-import { Outlet, useLoaderData } from 'react-router-dom'
+import { Outlet, useActionData, useLoaderData } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import Snackbar from '../../components/snackbar'
+import { ActionResType } from "../../types/pages/type";
 
 const allCategories = [
   {
@@ -43,7 +44,7 @@ export async function loader({ request }: any) {
   try {
     const categories = await CategoryService.getCategories();
     console.log(categories)
-    return categories.data;
+    return categories;
   } catch (error: any) {
     console.error('Error getting categories ', error.message);
   }
@@ -52,17 +53,40 @@ export async function loader({ request }: any) {
 export async function action({ request }: any) {
   try {
     const formData = await request.formData();
-    const data = Object.fromEntries(formData) as { name: string };
+    const data = Object.fromEntries(formData) as any;
     const res = await CategoryService.createCategory('/category', data);
-    console.log(res.data);
-    return res.data;
+    if (res?.response?.status === 409) {
+      return {
+        messageExist: true,
+        message: res.response.data.message,
+        status: "warning",
+      } as ActionResType;
+    }
+
+    return {
+      messageExist: true,
+      message: res?.data?.message,
+      status: "success",
+      categories: res.data
+    } as ActionResType;
+
   } catch (err: any) {
     console.error(err.message);
+    return null;
   }
 }
 
 function CategoryPage({ }: Props) {
   const categories = useLoaderData();
+  const actionData = useActionData() as ActionResType;
+  const message = actionData?.message;
+  const status = actionData?.status;
+  const [showMessage, setShowMessage] = useState(false);
+
+  useEffect(() => {
+    setShowMessage(actionData?.messageExist || false);
+  }, [actionData?.messageExist])
+
 
   return (
     <div className='flex flex-col gap-3 mt-[15px]'>
@@ -89,6 +113,18 @@ function CategoryPage({ }: Props) {
       <div>
         <Outlet />
       </div>
+      {
+        showMessage &&
+        (
+          <Snackbar
+            show={showMessage}
+            setShower={setShowMessage}
+            content={message}
+            variant={status}
+            textColor='text-black'
+          />
+        )
+      }
     </div>
   )
 }

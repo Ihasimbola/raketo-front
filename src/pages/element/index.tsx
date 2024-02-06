@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Text from '../../components/Text/Text'
 import Card from '../../components/Card/Card'
 import ItemList from '../../components/list/ItemList';
 import "./styles.scss";
+import { Outlet } from 'react-router';
+import { TopicService } from '../../services/topicService';
+import { useLoaderData, useActionData } from 'react-router-dom';
+import { ActionResType } from '../../types/pages/type';
+import Snackbar from '../../components/snackbar';
 
 const itemsLists = [
   {
@@ -110,10 +115,56 @@ type ItemType = {
   isFinished: boolean
 }
 
+export async function loader({ request }: any) {
+  try {
+    const topics = await TopicService.getTopics();
+    console.log(topics)
+    return topics;
+  } catch (error: any) {
+    console.error('Error getting tecnos ', error.message);
+  }
+}
+
+export async function action({ request }: any) {
+  try {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData) as any;
+    const res: any = await TopicService.createTopic(data);
+    console.log(res)
+    if (res?.response?.status === 409) {
+      return {
+        messageExist: true,
+        message: res.response.data.message,
+        status: "warning",
+      } as any
+    }
+
+    return {
+      messageExist: true,
+      message: res?.data?.message,
+      status: "success",
+      categories: res.data
+    } as any
+
+  } catch (err: any) {
+    console.error(err.message);
+    return null;
+  }
+}
 
 // type Props = {}
 
 function ElementPage({ }) {
+  const topics = useLoaderData();
+  const actionData = useActionData() as ActionResType;
+  const message = actionData?.message;
+  const status = actionData?.status;
+  const [showMessage, setShowMessage] = useState(false);
+
+  useEffect(() => {
+    setShowMessage(actionData?.messageExist || false);
+  }, [actionData])
+
   return (
     <div className="mt-4">
       <Text
@@ -131,6 +182,21 @@ function ElementPage({ }) {
           ))
         }
       </div>
+      <div>
+        <Outlet />
+      </div>
+      {
+        showMessage &&
+        (
+          <Snackbar
+            show={showMessage}
+            setShower={setShowMessage}
+            content={message}
+            variant={status}
+            textColor='text-black'
+          />
+        )
+      }
     </div>
   )
 }
