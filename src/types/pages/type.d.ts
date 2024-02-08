@@ -10,3 +10,13 @@ export type TopicDataType = {
   description: string;
   tecnoId: string;
 };
+
+export type TopicsType = {
+  description: string;
+  isDone: boolean;
+  spent_time: string;
+  tecno: string;
+  title: string;
+  userId: string;
+  _id: string;
+};

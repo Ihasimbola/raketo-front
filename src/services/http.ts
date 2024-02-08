@@ -20,6 +20,24 @@ class Http {
       throw error;
     }
   }
+
+  static async patch(url: string, data: any) {
+    try {
+      const res = await axiosInstance.patch(url, data);
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async delete(url: string) {
+    try {
+      const res = await axiosInstance(url);
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default Http;

@@ -18,4 +18,13 @@ export class TopicService extends Http {
       throw error;
     }
   }
+
+  static async updateTopic(id: string | number, data: any) {
+    try {
+      const res = await this.patch(`/topic/${id}`, data);
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

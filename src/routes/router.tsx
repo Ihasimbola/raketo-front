@@ -18,6 +18,7 @@ import { loader as modalLoader } from "../components/modal/tecnoContent";
 import { action as topicAction } from "../pages/element"
 import { loader as topicLoader } from "../pages/element"
 import { loader as topicModalLoader } from "../components/modal/topicContent";
+import { action as uploadAction } from "../pages/element/updateDone";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
               }
             ]
           },
+          {
+            path: "singa/:id",
+            action: uploadAction,
+          }
         ]
       }
     ],
