@@ -1,0 +1,16 @@
+.snackbar {
+  @apply flex flex-row gap-2;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+
+  &__text-black {
+    color: black;
+  }
+}
+
+.snackbar-hide {
+  display: none;
+  opacity: 0;
+}

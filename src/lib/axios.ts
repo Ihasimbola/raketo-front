@@ -1,8 +1,7 @@
-import axios, { AxiosResponse } from "axios";
-import env from "react-dotenv";
+import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: env.API_URL,
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 axiosInstance.interceptors.request.use(
@@ -12,8 +11,8 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers = {
         Authorization: `Bearer ${token}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        // Accept: "application/json",
+        // "Content-Type": "application/json",
       };
     }
 
@@ -44,6 +43,8 @@ axiosInstance.interceptors.response.use(
       return Promise.resolve(axiosInstance(originalRequest));
     } else if (err.response.status === 401) {
       return Promise.reject(err);
+    } else {
+      return err;
     }
   }
 );

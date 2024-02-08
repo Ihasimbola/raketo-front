@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import Text from '../Text/Text';
 import "./style.scss";
-import { useMatch, useMatches } from 'react-router-dom';
+import { UIMatch, useMatch, useMatches } from 'react-router-dom';
 
 // const urls = [
 //   "Home",
@@ -73,17 +73,22 @@ const BreadcrumbsItem = forwardRef<Ref, ItemProps>(({ item, index, itemsGap = -7
 })
 
 function Breadcrumbs() {
-  const matches = useMatches();
-  // console.log(matches)
+  const matches: any = useMatches();
+  // console.log(matches[3].handle?.crumb())
+
   let urls = matches.map((item: any) => {
-    if (item.pathname === "/") return "Home";
-    return item.pathname.substr(1);
-  });
-  if (urls.every((url: string) => url === "Home")) {
-    urls = ["Home"];
-  } else {
-    urls.shift();
-  }
+    return item.handle?.crumb()
+  }).slice(1)
+
+  // let urls = matches.map((item: any) => {
+  //   if (item.pathname === "/") return "Home";
+  //   return item.pathname.substr(1);
+  // });
+  // if (urls.every((url: string) => url === "Home")) {
+  //   urls = ["Home"];
+  // } else {
+  //   urls.shift();
+  // }
 
   return (
     <ul className="flex flex-row items-center list-style-none list-container">
