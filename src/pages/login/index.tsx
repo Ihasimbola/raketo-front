@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import LoginImg from "../../assets/login.jpg"
 import Text from '../../components/Text/Text'
-import { Form, NavLink, redirect } from 'react-router-dom'
+import { Form, NavLink, Outlet, redirect } from 'react-router-dom'
 import Input from '../../components/Input/Input'
 import { Button } from '../../components/Button/Button'
 import "./styles.scss"
@@ -92,6 +92,9 @@ const LoginPage = (props: Props) => {
             </NavLink>
           </Form>
         </div>
+      </div>
+      <div>
+        <Outlet />
       </div>
     </div>
   )
