@@ -12,7 +12,8 @@ const buttonVariants = cva(
         primary: "bg-green-700 text-white hover:bg-green-800",
         secondary: "bg-yellow-600 text-white hover:bg-yellow-700",
         gray: "bg-gray-600 text-white hover:bg-gray-700",
-        danger: "bg-red-500 text-white hover:bg-red-600"
+        danger: "bg-red-500 text-white hover:bg-red-600",
+        transparent: "bg-transparent"
       },
       size: {
         default: "h-10 py-2 px-4",
@@ -26,15 +27,14 @@ const buttonVariants = cva(
   }
 );
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants>
-{
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
 
 }
 
-function Button({className, size, variant, ...props}: ButtonProps) {
+function Button({ className, size, variant, ...props }: ButtonProps) {
   return (
     <button
-      className={cn(buttonVariants({size, variant, className}))}
+      className={cn(buttonVariants({ size, variant, className }))}
       {...props}
     />
   )

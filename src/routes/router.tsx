@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, useParams } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
 import CategoryPage from "../pages/category";
 import ElementPage from "../pages/element";
@@ -19,6 +19,9 @@ import { action as topicAction } from "../pages/element"
 import { loader as topicLoader } from "../pages/element"
 import { loader as topicModalLoader } from "../components/modal/topicContent";
 import { action as uploadAction } from "../pages/element/updateDone";
+import { action as deleteAction } from "../components/modal/DeletionModal";
+import DeletionModal from "../components/modal/DeletionModal";
+
 
 export const router = createBrowserRouter([
   {
@@ -55,7 +58,7 @@ export const router = createBrowserRouter([
                 path: "create",
                 element: <Modal><TecnoContent /></Modal>,
                 loader: modalLoader,
-                handle: { crumb: () => "create", postUrl: "tekno" }
+                handle: { crumb: () => "create", urlEndPoint: "tekno" }
 
               }
             ]
@@ -72,14 +75,24 @@ export const router = createBrowserRouter([
                 path: "create",
                 element: <Modal><TopicContent /></Modal>,
                 loader: topicModalLoader,
-                handle: { crumb: () => "create", postUrl: "singa" },
+                handle: { crumb: () => "create", urlEndPoint: "singa" },
+              },
+              {
+                path: "delete/:id",
+                element: <DeletionModal />,
+                action: deleteAction,
+                handle: { crumb: () => "delete", urlEndPoint: "delete" }
               }
             ]
           },
           {
             path: "singa/:id",
             action: uploadAction,
-          }
+          },
+          // {
+          //   path: "singa/delete/:id",
+          //   action: deleteAction
+          // }
         ]
       }
     ],

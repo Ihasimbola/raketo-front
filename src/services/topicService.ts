@@ -27,4 +27,13 @@ export class TopicService extends Http {
       throw error;
     }
   }
+
+  static async deleteTopic(id: string | number) {
+    try {
+      const res = await this.delete(`/topic/${id}`);
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

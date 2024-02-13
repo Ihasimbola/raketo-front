@@ -11,10 +11,17 @@ export type TopicDataType = {
   tecnoId: string;
 };
 
+type Spent_TimeType = {
+  day: number;
+  hour: number;
+  minute: number;
+  second: number;
+};
+
 export type TopicsType = {
   description: string;
   isDone: boolean;
-  spent_time: string;
+  spent_time: Spent_TimeType;
   tecno: string;
   title: string;
   userId: string;

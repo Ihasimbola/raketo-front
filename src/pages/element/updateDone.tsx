@@ -4,10 +4,8 @@ export const action = async ({ params, request }: any) => {
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
-    console.log(data);
-    console.log(params.id)
-    return null
-    // const res = await TopicService.updateTopic(params.topicId, chronoData);
+    const res = await TopicService.updateTopic(params.id, data);
+    return res;
   } catch (error: any) {
     console.log("error updating chrono ", error.message)
     throw error;

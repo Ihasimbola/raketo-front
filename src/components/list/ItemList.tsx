@@ -7,8 +7,10 @@ import { VariantProps, cva } from 'class-variance-authority'
 import { cn } from '../../lib/utils'
 import "./styles.scss";
 import { TopicsType } from '../../types/pages/type'
-import { useFetcher } from 'react-router-dom'
+import { NavLink, useFetcher } from 'react-router-dom'
 import DoubleCheckIcon from '../icons/DoubleCheckIcon'
+import { TopicService } from '../../services/topicService'
+import TrashIcon from '../icons/TrashIcon'
 
 const listVariants = cva(
   "flex flex-row justify-between items-center w-full rounded-md border border-1 border-gray-300 py-2 px-5",
@@ -32,17 +34,23 @@ interface Props extends VariantProps<typeof listVariants> {
 
 function ItemList({ variant, data }: Props) {
   const fetcher = useFetcher()
-  const splittedDuration = data.spent_time.split(':');
+  const spentTime = data.spent_time;
   const [chronoInterval, setChronoInterval] = useState() as any
   const [chronoBtnActive, setChronoBtnActive] = useState("pause");
-  const [isDone, setIsDone] = useState(true)
+  const [isDone, setIsDone] = useState(data.isDone)
   const rowRef = createRef<HTMLDivElement>();
   const [chrono, setChrono] = useState({
-    day: splittedDuration.length === 4 ? +splittedDuration[0] : 0,
-    hour: splittedDuration.length === 4 ? +splittedDuration[1] : +splittedDuration[0],
-    minute: splittedDuration.length === 4 ? +splittedDuration[2] : +splittedDuration[1],
-    second: splittedDuration.length === 4 ? +splittedDuration[3] : +splittedDuration[2],
+    day: spentTime.day,
+    hour: spentTime.hour,
+    minute: spentTime.minute,
+    second: spentTime.second
   });
+
+
+  useEffect(() => {
+    setIsDone(data.isDone);
+  }, [data.isDone]);
+
 
   const startInterval = () => {
     setChronoBtnActive("play");
@@ -90,8 +98,8 @@ function ItemList({ variant, data }: Props) {
   const handleUpdateChrono = async () => {
     stopInterval();
     try {
-      // const res = await TopicService.updateTopic(data._id, chrono);
-      console.log("res from update chrono ", chrono);
+      const res = await TopicService.updateTopic(data._id, chrono);
+      console.log("res from updateChrono ", res);
     } catch (error: any) {
       console.error("Error updating chrono ", error.message);
     }
@@ -148,24 +156,29 @@ function ItemList({ variant, data }: Props) {
       </div>
 
 
+      <div className="list__btn flex justify-between items-center">
+        {
+          isDone ? (
+            <div className="flex justify-end " >
+              <DoubleCheckIcon height="auto" width={40} currentColor="stroke-green-700" />
+            </div>
+          ) : (
+            <fetcher.Form method='PATCH' action={`${data._id}`} className="">
+              <Button
+                type="submit"
+                name="isDone"
+                value="true"
+              >
+                Vita
+              </Button>
+            </fetcher.Form>
+          )
+        }
+        <NavLink to={`delete/${data._id}`}>
+          <TrashIcon currentColor='stroke-gray-800' />
+        </NavLink>
+      </div>
 
-      {
-        isDone ? (
-          <div className="flex justify-end list__btn" >
-            <DoubleCheckIcon height="auto" width={40} currentColor="stroke-gray-600" />
-          </div>
-        ) : (
-          <fetcher.Form method='PATCH' action={`${data._id}`} className="list__btn">
-            <Button
-              type="submit"
-              name="isDone"
-              value="true"
-            >
-              Vita
-            </Button>
-          </fetcher.Form>
-        )
-      }
     </div >
   )
 }

@@ -26,13 +26,14 @@ class Http {
       const res = await axiosInstance.patch(url, data);
       return res;
     } catch (error) {
+      console.log("error in http ", error);
       throw error;
     }
   }
 
   static async delete(url: string) {
     try {
-      const res = await axiosInstance(url);
+      const res = await axiosInstance.delete(url);
       return res;
     } catch (error) {
       throw error;
