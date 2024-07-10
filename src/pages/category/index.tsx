@@ -1,52 +1,51 @@
-import Text from '../../components/Text/Text'
-import Card from '../../components/Card/Card'
-import CategoryService from '../../services/categoryService'
-import { Outlet, useActionData, useLoaderData } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import Snackbar from '../../components/snackbar'
+import Text from "../../components/Text/Text";
+import Card from "../../components/Card/Card";
+import CategoryService from "../../services/categoryService";
+import { Outlet, useActionData, useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Snackbar from "../../components/snackbar";
 import { ActionResType } from "../../types/pages/type";
+import type { TotalSpentTimeType } from "../../types/pages/type";
 
 const allCategories = [
   {
     label: "Front",
     itemsNumber: 5,
-    accumulatedHour: 9
+    accumulatedHour: 9,
   },
   {
     label: "Back",
     itemsNumber: 8,
-    accumulatedHour: 4
-
+    accumulatedHour: 4,
   },
   {
     label: "Devops",
     itemsNumber: 3,
-    accumulatedHour: 1
-
+    accumulatedHour: 1,
   },
   {
     label: "IA",
     itemsNumber: 5,
-    accumulatedHour: 2
-
+    accumulatedHour: 2,
   },
   {
     label: "Crypto",
     itemsNumber: 2,
-    accumulatedHour: 8
+    accumulatedHour: 8,
+  },
+];
 
-  }
-]
-
-type Props = {}
+type Props = {};
 
 export async function loader({ request }: any) {
   try {
     const categories = await CategoryService.getCategories();
-    console.log(categories)
-    return categories;
+    // console.log(categories)
+    return {
+      categories: categories.data,
+    };
   } catch (error: any) {
-    console.error('Error getting categories ', error.message);
+    console.error("Error getting categories ", error.message);
   }
 }
 
@@ -54,7 +53,7 @@ export async function action({ request }: any) {
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData) as any;
-    const res = await CategoryService.createCategory('/category', data);
+    const res = await CategoryService.createCategory("/category", data);
     if (res?.response?.status === 409) {
       return {
         messageExist: true,
@@ -67,17 +66,16 @@ export async function action({ request }: any) {
       messageExist: true,
       message: res?.data?.message,
       status: "success",
-      categories: res.data
+      categories: res.data,
     } as ActionResType;
-
   } catch (err: any) {
     console.error(err.message);
     return null;
   }
 }
 
-function CategoryPage({ }: Props) {
-  const categories = useLoaderData();
+function CategoryPage({}: Props) {
+  const { categories } = useLoaderData() as { categories: any };
   const actionData = useActionData() as ActionResType;
   const message = actionData?.message;
   const status = actionData?.status;
@@ -85,48 +83,34 @@ function CategoryPage({ }: Props) {
 
   useEffect(() => {
     setShowMessage(actionData?.messageExist || false);
-  }, [actionData?.messageExist])
-
+  }, [actionData?.messageExist]);
 
   return (
-    <div className='flex flex-col gap-3 mt-[15px]'>
-      <Text
-        color="light-700"
-        as="h1"
-        size="xl"
-        weight="medium"
-      >
+    <div className="flex flex-col gap-3 mt-[15px]">
+      <Text color="light-700" as="h1" size="xl" weight="medium">
         Ireo sokajy rehetra
       </Text>
       <div className="flex flex-row flex-wrap overflow-hidden gap-4">
-        {
-          allCategories.map((category: any, idx: number) => (
-            <Card data={category} key={idx}>
-              <Text>
-                {category.label}
-              </Text>
-            </Card>
-          ))
-        }
-
+        {categories.map((category: any, idx: number) => (
+          <Card data={category} key={idx}>
+            <Text>{category.name}</Text>
+          </Card>
+        ))}
       </div>
       <div>
         <Outlet />
       </div>
-      {
-        showMessage &&
-        (
-          <Snackbar
-            show={showMessage}
-            setShower={setShowMessage}
-            content={message}
-            variant={status}
-            textColor='text-black'
-          />
-        )
-      }
+      {showMessage && (
+        <Snackbar
+          show={showMessage}
+          setShower={setShowMessage}
+          content={message}
+          variant={status}
+          textColor="text-black"
+        />
+      )}
     </div>
-  )
+  );
 }
 
-export default CategoryPage
+export default CategoryPage;

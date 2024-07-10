@@ -54,6 +54,7 @@ export async function loader({ request }: any) {
     const tecnos = await TecnoService.getTecnos();
     // console.log(tecnos)
     return tecnos;
+    return null
   } catch (error: any) {
     console.error('Error getting tecnos ', error.message);
   }

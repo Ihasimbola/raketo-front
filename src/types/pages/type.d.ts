@@ -27,3 +27,10 @@ export type TopicsType = {
   userId: string;
   _id: string;
 };
+
+export type TotalSpentTimeType = {
+  day: number;
+  hour: number;
+  minute: number;
+  second: number;
+};
