@@ -92,7 +92,7 @@ function CategoryPage({}: Props) {
       </Text>
       <div className="flex flex-row flex-wrap overflow-hidden gap-4">
         {categories.map((category: any, idx: number) => (
-          <Card data={category} key={idx}>
+          <Card data={category} url="/category" key={idx}>
             <Text>{category.name}</Text>
           </Card>
         ))}
