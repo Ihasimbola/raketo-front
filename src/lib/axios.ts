@@ -32,15 +32,28 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (err: any) => {
-    const originalRequest = err.config;
     // console.log("4xx range => ", err);
+    const originalRequest = err.config;
+    let resRetry: any;
     if (err.response.status === 403) {
       originalRequest._retry = true;
+      // console.log(err);
+
       const res: any = await refreshToken(localStorage.getItem("refreshToken"));
 
       localStorage.setItem("token", res.data.token);
-      axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
-      return Promise.resolve(axiosInstance(originalRequest));
+      axiosInstance.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
+      if (
+        originalRequest.method === "post" ||
+        originalRequest.method === "patch" ||
+        originalRequest.method === "delete"
+      ) {
+        originalRequest.headers["Content-Type"] = "application/json";
+        originalRequest.data = JSON.parse(originalRequest.data);
+        resRetry = await axiosInstance.request(originalRequest);
+        return resRetry;
+      }
+      return await axiosInstance.request(originalRequest);
     } else if (err.response.status === 401) {
       return Promise.reject(err);
     } else {

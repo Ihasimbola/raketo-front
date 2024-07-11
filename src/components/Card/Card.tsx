@@ -1,51 +1,82 @@
-import React, { Children, useLayoutEffect } from 'react'
-import Text from '../Text/Text'
-import { cn } from '../../lib/utils'
-import './style.scss'
-import Badge from '../Badge/Badge'
+import React, { Children, PropsWithChildren, Suspense } from "react";
+import Text from "../Text/Text";
+import { cn } from "../../lib/utils";
+import "./style.scss";
+// import Badge from '../Badge/Badge'
+import { lazy } from "react";
+import type { TotalSpentTimeType } from "../../types/pages/type";
+import CategoryService from "../../services/categoryService";
+import Test from "./Test";
+import { InfinitySpin } from "react-loader-spinner";
+const Badge = lazy(() => import("../Badge/Badge"));
 
-type DataType = {
-  itemsNumber: number,
-  accumulatedHour: number
+interface DataType {
+  data: {
+    itemsNumber: number;
+    accumulatedHour: number;
+  };
+  totalSpentTime?: Promise<Array<TotalSpentTimeType>>;
+  url?: string;
 }
 
-type Props = {
-  children: React.ReactNode,
-  data: DataType
-}
-
-function Card({ data, children }: Props) {
-  const etiquette: any = Children
-    .map(children, (child: any, idx: number) => child)
-    ?.filter((item: any, idx: number) => idx > 0)[0]
+function Card({
+  data,
+  totalSpentTime,
+  url,
+  children,
+}: PropsWithChildren<DataType>) {
+  const etiquette: any = Children.map(
+    children,
+    (child: any, idx: number) => child
+  )?.filter((item: any, idx: number) => idx > 0)[0];
 
   const childrenArr = Children.toArray(children);
 
+  // const getSpentTime = async () => {
+  //   try {
+  //     const res = await CategoryService.getTotalSpentTime();
+  //     console.log(res);
+  //   } catch (error: any) {
+  //     console.log("Error in card component ", error.message);
+  //   }
+  // }
 
   return (
-    <div
-      className={cn("rounded-md w-fit card-container cursor-pointer")}
-    >
-      <div className={cn(`${etiquette ? 'justify-between flex flex-row w-full' : 'self-end'}`)}>
-        <div className="">
-          {etiquette}
+    <Suspense fallback={<p>Loading...</p>}>
+      <div className={cn("rounded-md w-fit card-container cursor-pointer")}>
+        <div
+          className={cn(
+            `${etiquette ? "justify-between flex flex-row w-full" : "self-end"}`
+          )}
+        >
+          <div className="">{etiquette}</div>
+          <div>
+            <Suspense
+              fallback={
+                <div className={cn("self-end")}>
+                  <InfinitySpin width="100" color="#e2e8eb" />
+                </div>
+              }
+            >
+              <Badge propsData={data} url={`${url}/total-spent-time`} />
+            </Suspense>
+          </div>
         </div>
-        <Badge>
-          <Text color="light-800">
-            {`Zavatra ${data.itemsNumber}`}
-          </Text>
-        </Badge>
+        <div>{childrenArr[0]}</div>
+        <div className="self-end">
+          <Suspense
+            fallback={
+              <div className={cn("self-end")}>
+                <InfinitySpin width="100" color="#e2e8eb" />
+              </div>
+            }
+          >
+            <Badge propsData={data} url={`${url}/total-items`}></Badge>
+          </Suspense>
+        </div>
       </div>
-      <div>
-        {childrenArr[0]}
-      </div>
-      <div className="self-end">
-        <Badge>
-          <Text color="light-800">{data.accumulatedHour} ora</Text>
-        </Badge>
-      </div>
-    </div>
-  )
+    </Suspense>
+  );
 }
 
-export default Card
+export default Card;

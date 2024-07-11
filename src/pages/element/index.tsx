@@ -86,25 +86,30 @@ export async function action({ request, param }: any) {
       console.log("method patch");
       return null;
     }
-    return null
-    // const formData = await request.formData();
-    // const data = Object.fromEntries(formData) as any;
-    // const res: any = await TopicService.createTopic(data);
-    // console.log(res)
-    // if (res?.response?.status === 409) {
-    //   return {
-    //     messageExist: true,
-    //     message: res.response.data.message,
-    //     status: "warning",
-    //   } as any
-    // }
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData) as any;
+    data.spent_time = {
+      day: 0,
+      hour: 0,
+      minute: 0,
+      second: 0,
+    }
+    const res: any = await TopicService.createTopic(data);
+    console.log(res)
+    if (res?.response?.status === 409) {
+      return {
+        messageExist: true,
+        message: res.response.data.message,
+        status: "warning",
+      } as any
+    }
 
-    // return {
-    //   messageExist: true,
-    //   message: res?.data?.message,
-    //   status: "success",
-    //   categories: res.data
-    // } as any
+    return {
+      messageExist: true,
+      message: res?.data?.message,
+      status: "success",
+      categories: res.data
+    } as any
 
   } catch (err: any) {
     console.error(err.message);

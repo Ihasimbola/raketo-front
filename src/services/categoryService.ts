@@ -19,6 +19,16 @@ class CategoryService extends Http {
       throw error;
     }
   }
+
+  static async getTotalSpentTime(url: string) {
+    try {
+      const res: any = await this.get(`${url}`);
+
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default CategoryService;

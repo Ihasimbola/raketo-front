@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, useParams } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
 import CategoryPage from "../pages/category";
 import ElementPage from "../pages/element";
@@ -15,10 +15,12 @@ import TecnoContent from "../components/modal/tecnoContent";
 import { action as tecnoAction } from "../pages/tekno";
 import { loader as tecnoLoader } from "../pages/tekno";
 import { loader as modalLoader } from "../components/modal/tecnoContent";
-import { action as topicAction } from "../pages/element"
-import { loader as topicLoader } from "../pages/element"
+import { action as topicAction } from "../pages/element";
+import { loader as topicLoader } from "../pages/element";
 import { loader as topicModalLoader } from "../components/modal/topicContent";
 import { action as uploadAction } from "../pages/element/updateDone";
+import { action as deleteAction } from "../components/modal/DeletionModal";
+import DeletionModal from "../components/modal/DeletionModal";
 
 export const router = createBrowserRouter([
   {
@@ -29,20 +31,29 @@ export const router = createBrowserRouter([
       {
         handle: { crumb: () => "Home" },
         children: [
-          { index: true, element: <HomePage />, handle: { crumb: () => "index" } },
+          {
+            index: true,
+            element: <HomePage />,
+            handle: { crumb: () => "index" },
+          },
           {
             path: "sokajy",
             element: <CategoryPage />,
             loader: categoryLoader,
             action: categoryAction,
+            id: "category",
             handle: { crumb: () => "sokajy" },
             children: [
               {
                 path: "create",
-                element: <Modal><CategoryContent /></Modal>,
-                handle: { crumb: () => "create", postUrl: "sokajy" }
-              }
-            ]
+                element: (
+                  <Modal>
+                    <CategoryContent />
+                  </Modal>
+                ),
+                handle: { crumb: () => "create", postUrl: "sokajy" },
+              },
+            ],
           },
           {
             path: "tekno",
@@ -53,13 +64,15 @@ export const router = createBrowserRouter([
             children: [
               {
                 path: "create",
-                element: <Modal><TecnoContent /></Modal>,
+                element: (
+                  <Modal>
+                    <TecnoContent />
+                  </Modal>
+                ),
                 loader: modalLoader,
-                handle: { crumb: () => "create", postUrl: "tekno" }
-
-              }
-            ]
-
+                handle: { crumb: () => "create", urlEndPoint: "tekno" },
+              },
+            ],
           },
           {
             path: "singa",
@@ -70,18 +83,32 @@ export const router = createBrowserRouter([
             children: [
               {
                 path: "create",
-                element: <Modal><TopicContent /></Modal>,
+                element: (
+                  <Modal>
+                    <TopicContent />
+                  </Modal>
+                ),
                 loader: topicModalLoader,
-                handle: { crumb: () => "create", postUrl: "singa" },
-              }
-            ]
+                handle: { crumb: () => "create", urlEndPoint: "singa" },
+              },
+              {
+                path: "delete/:id",
+                element: <DeletionModal />,
+                action: deleteAction,
+                handle: { crumb: () => "delete", urlEndPoint: "delete" },
+              },
+            ],
           },
           {
             path: "singa/:id",
             action: uploadAction,
-          }
-        ]
-      }
+          },
+          // {
+          //   path: "singa/delete/:id",
+          //   action: deleteAction
+          // }
+        ],
+      },
     ],
   },
   {
@@ -89,4 +116,4 @@ export const router = createBrowserRouter([
     element: <LoginPage />,
     action: loginAction,
   },
-])
+]);

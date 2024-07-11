@@ -11,14 +11,14 @@ type Props = {
 function Modal({ children }: Props) {
   const navigate = useNavigate();
   const match = useMatches()
-  const handle = match[match.length - 1].handle as { handle: () => string, postUrl: string };
+  const handle = match[match.length - 1].handle as { handle: () => string, urlEndPoint: string };
 
   const handleCloseModal = () => {
     navigate(-1);
   }
   const content = (
     <div className='modal rounded-md'>
-      <Form method="post" action={`/${handle.postUrl}`} encType='multipart/form-data'>
+      <Form method="post" action={`/${handle.urlEndPoint}`} encType='multipart/form-data'>
         {
           createPortal((<div className='modal__overlay' onClick={handleCloseModal}></div>), document.body)
         }
