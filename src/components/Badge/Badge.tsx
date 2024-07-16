@@ -22,8 +22,11 @@ function Badge({ propsData, children, url }: PropsData) {
     fetcher,
     {
       suspense: true,
+      shouldRetryOnError: false,
     }
   );
+
+  // console.log(propsData);
 
   // let day, hour, minute, second, content;
 
