@@ -95,14 +95,14 @@ function TeknoPage({}: Props) {
     setShowMessage(actionData?.messageExist || false);
   }, [actionData?.messageExist]);
 
-  console.log(tecnos);
-  console.log(process.env);
-
   return (
     <div className="flex flex-col gap-3 mt-[15px]">
       <Text color="light-700" as="h1" size="xl" weight="medium">
         Ireo teknolojia rehetra
       </Text>
+      <div>
+        <Text>Sivana</Text>
+      </div>
       <div className="flex flex-row flex-wrap overflow-hidden gap-4">
         {tecnos.data.map((tecno: any, idx: number) => (
           <Card data={tecno} key={idx} url="/tecno">
